@@ -22,3 +22,19 @@ Route::get('/home', function () {
 Route::get('/home-new', function () {
     return view('homepage-new');
 });
+
+Route::get('/signIn', function () {
+	return view('sign-in');
+});
+
+Route::get('/signup', function () {
+	return view('sign-up');
+});
+
+Route::get('/article', function(){
+	return view('article');
+});
+
+Route::get('/recipe', function(){
+	return view('recipe');
+});
