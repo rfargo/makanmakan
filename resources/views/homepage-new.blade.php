@@ -40,9 +40,22 @@
         <a class="nav-link hvr-underline-from-center" href="#">Expert's Advices</a>
       </li>
 
+      <li class="nav-item disabled">
+        <a class="nav-link" href="#">|</a>
+      </li>
+
       <li class="nav-item active">
         <a class="nav-link hvr-underline-from-center" href="#">Sign In</a>
       </li>
+
+      <li class="nav-item disabled">
+        <a class="nav-link" href="#">or</a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link hvr-underline-from-center" href="#">Sign In</a>
+      </li>
+
     </ul>
   </div>
 </nav>

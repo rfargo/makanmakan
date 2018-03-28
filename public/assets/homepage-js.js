@@ -37,7 +37,7 @@ $(document).ready(function(){
 $(window).scroll(function(){
 	if($(this).scrollTop() < 50){
 		$(".navbar").css("background-color","transparent");
-		$("#navbarArea").css("margin-right","30vw");
+		$("#navbarArea").css("margin-right","20vw");
 		$(".navbar-brand").hide();
 	}
 
