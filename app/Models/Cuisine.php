@@ -9,4 +9,9 @@ class Cuisine extends Model
     protected $table = 'cuisines';
     protected $fillable = ['name'];
     protected $guarded = [];
+
+    public function cuisineDetails()
+    {
+    	return $this->hasMany('App\Models\CuisineDetails');
+    }
 }
