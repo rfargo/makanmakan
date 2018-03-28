@@ -18,3 +18,7 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('homepage');
 });
+
+Route::get('/home-new', function () {
+    return view('homepage-new');
+});
