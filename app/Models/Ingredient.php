@@ -6,5 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ingredient extends Model
 {
-    //
+    protected $table = 'ingredients';
+	protected $fillable = ['name'];
+	protected $guarded = [];
+
+	public function ingredientDetails()
+	{
+		return $this->hasMany('App\Models\IngredientDetails');
+	}
 }

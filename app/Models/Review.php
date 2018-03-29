@@ -6,5 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
-    //
+    protected $table = 'reviews';
+	protected $fillable = ['article_id','user_id','content','rating','datePosted','isDeleted'];
+	protected $guarded = [];
+
+	public function reportedReviews()
+	{
+		return $this->hasMany('App\Models\ReportedReview');
+	}
+
+	public function recipe()
+	{
+		return $this->belongsTo('App\Models\Recipe');
+	}
+
+	public function user()
+	{
+		return $this->belongsTo('App\Models\User');
+	}
 }
