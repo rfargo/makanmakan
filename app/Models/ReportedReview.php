@@ -9,7 +9,8 @@ class ReportedReview extends Model
     protected $table = 'reported_reviews';
 	protected $fillable = ['review_id','user_id','reason','dateReported'];
 	protected $guarded = [];
-
+    public $timestamps = false;
+    
 	public function review()
 	{
 		return $this->belongsTo('App\Models\Review');

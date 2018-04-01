@@ -9,6 +9,7 @@ class User extends Model
     protected $table = 'users';
     protected $fillable = ['firstName','lastName','username', 'email', 'password','accessLevel','isDeleted'];
     protected $guarded = [];
+    public $timestamps = false;
 
     public function savedArticles()
     {

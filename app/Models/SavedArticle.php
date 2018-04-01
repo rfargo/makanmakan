@@ -9,7 +9,8 @@ class SavedArticle extends Model
     protected $table = 'saved_articles';
 	protected $fillable = ['article_id','user_id'];
 	protected $guarded = [];
-
+    public $timestamps = false;
+    
 	public function article()
 	{
 		return $this->belongsTo('App\Models\Article');

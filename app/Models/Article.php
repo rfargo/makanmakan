@@ -9,7 +9,8 @@ class Article extends Model
     protected $table = 'articles';
     protected $fillable = ['user_id','title','content', 'datePosted', 'dateCreated','isPublic','isDeleted'];
     protected $guarded = [];
-
+    public $timestamps = false;
+    
     public function user()
     {
     	return $this->belongsTo('App\Models\User');

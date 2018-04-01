@@ -26,19 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-         $user = [
-            "firstName" => $request->firstName,
-            "lastName" => $request->lastName,
-            "username" => $request->username,
-            "email" => $request->email,
-            "password" => $request->password,
-            "accesLevel" => $request->accesLevel,
-            "isDeleted" => $request->isDeleted
-        ];
-
-        $user = $this->user->create($user);
-
-        return response()->json($user,200);
+         
         
     }
 
@@ -50,7 +38,23 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = [
+            "firstName" => $request->firstName,
+            "lastName" => $request->lastName,
+            "username" => $request->username,
+            "email" => $request->email,
+            "password" => $request->password,
+            "accessLevel" => $request->accessLevel,
+            "isDeleted" => $request->isDeleted
+        ];
+        try { 
+            $user = $this->user->create($user); 
+            return response('Created',201);
+        } 
+        catch(Exception $ex) {
+            echo $ex; 
+            return response('Failed', 400);
+        }
     }
 
     /**
@@ -59,11 +63,17 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-       $user = $this->user->where("id", "=", "$id")->get(); 
-
-       return response()->json($user,200);
+        try {
+            $users = $this->user->get();
+            return response()->json($users, 200);
+        }
+        catch (Exception $ex) {
+            echo $ex;
+            return response('Failed', 400);
+        }
+       
     }
 
     /**
@@ -72,21 +82,20 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function showProfile($id) {
+        try{
+            $user = $this->user->where("id", "=", "$id")->get(); 
+            return response()->json($user,200);
+        }
+        catch (Exception $ex) {
+            echo $ex;
+            return response('Failed', 400);
+        }
+       
+    }
+
     public function edit($id)
     {
-        $usernew = [
-            "firstName" => $request->firstName,
-            "lastName" => $request->lastName,
-            "username" => $request->username,
-            "email" => $request->email,
-            "password" => $request->password,
-            "accesLevel" => $request->accesLevel,
-            "isDeleted" => $request->isDeleted
-        ];
-        $user = $this->user->where("id", "=", "$request->id")->update($usernew);
-        $user = $this->user->where("id", "=", "$request->id")->get();
-
-        return response()->json($user,200);
     }
 
     /**
@@ -97,8 +106,24 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        
+    {   
+        try {
+            $user = $this->user->find($id)->update([
+                "firstName" => $request->firstName,
+                "lastName" => $request->lastName,
+                "username" => $request->username,
+                "email" => $request->email,
+                "password" => $request->password,
+                "accessLevel" => $request->accessLevel,
+                "isDeleted" => $request->isDeleted
+            ]);
+            $user = $this->user->where("id", "=", "$request->id")->get();
+
+            return response()->json($user,200);
+        }
+        catch(Exception $ex) {
+            return response()->json($ex, 400);
+        }
     }
 
     /**
@@ -107,11 +132,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        $user = $this->user->where("id", "=", "$id")->update(['isDeleted' => true]);;
-
-
-        return response()->json($user,200);
+        try {
+            $user = $this->user->where("id", "=", "$id")->update(['isDeleted' => true]);;
+            return response('Deleted',200);
+        }
+        catch(Exception $ex) {
+            return response($ex, 400);
+        }
     }
 }

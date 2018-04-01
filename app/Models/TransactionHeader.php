@@ -9,7 +9,9 @@ class TransactionHeader extends Model
     protected $table = 'transaction_headers';
 	protected $fillable = ['user_id','status','deliveryAddress','dateSent','dateReceived','dateOrdered'];
 	protected $guarded = [];
-
+    public $timestamps = false;
+    public $timestamps = false;
+    
 	public function transactionDetails()
 	{
 		return $this->hasMany('App\Models\TransactionDetails');

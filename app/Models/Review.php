@@ -9,7 +9,8 @@ class Review extends Model
     protected $table = 'reviews';
 	protected $fillable = ['article_id','user_id','content','rating','datePosted','isDeleted'];
 	protected $guarded = [];
-
+    public $timestamps = false;
+    
 	public function reportedReviews()
 	{
 		return $this->hasMany('App\Models\ReportedReview');

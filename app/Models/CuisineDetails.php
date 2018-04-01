@@ -9,7 +9,8 @@ class CuisineDetails extends Model
     protected $table = 'cuisine_details';
     protected $fillable = ['recipe_id','cuisine_id'];
     protected $guarded = [];
-
+    public $timestamps = false;
+    
     public function cuisine()
     {
     	return $this->belongsTo('App\Models\Cuisine');

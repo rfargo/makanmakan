@@ -65,7 +65,7 @@
       <!--<img src="{{ asset('assets/images/pic1.jpg') }}"> -->
       <hr>
       <h1>Cara masak anak ayam dengan kekuatan bulan</h1>
-      <h6>created by <span>Siapa ya</span> at <span>17 Agustus '45</span></h6>
+      <h6>created by <span>Siapa ya</span> at <span>17 Agustus 19845</span></h6>
       <div>
       <h6>rating <span>3.5</span>/5</h6>
       </div>
