@@ -26,6 +26,8 @@ class CreateRecipesTable extends Migration
                 'gallon','gallons','dozen',
                 'liter','liters'])->nullable();
             $table->longText('preparation');
+            $table->integer('qty')->nullable();
+            $table->integer('price')->nullable();
             $table->integer('views');
             $table->dateTime('dateCreated');
             $table->dateTime('datePublished')->nullable();
