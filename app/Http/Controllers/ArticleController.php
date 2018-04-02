@@ -3,22 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Article;
 use Exception;
 
-class UserController extends Controller
+class ArticleController extends Controller
 {
-    protected $user;
 
-    //initialize user
-    public function __construct(User $user){
-        $this->user = $user;
+    protected $data;
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+     public function __construct(Article $data){
+        $this->data = $data;
     }
 
-    //show all user
     public function index()
     {
-        return User::all();
+        return Article::all();
     }
 
     /**
@@ -26,11 +30,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function create()
     {
-         
-        
+        //
     }
 
     /**
@@ -39,21 +41,20 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
-    //create new user
     public function store(Request $request)
     {
-        $user = [
-            "firstName" => $request->firstName,
-            "lastName" => $request->lastName,
-            "username" => $request->username,
-            "email" => $request->email,
-            "password" => $request->password,
-            "accessLevel" => $request->accessLevel,
+        $data = [
+            "user_id" => $request->user_id,
+            "title" => $request->title,
+            "content" => $request->content,
+            "views" => $request->views,
+            "datePosted" => $request->datePosted,
+            "dateCreated" => $request->dateCreated,
+            "isPublic" => $request->isPublic,
             "isDeleted" => $request->isDeleted
         ];
         try { 
-            $user = $this->user->create($user); 
+            $data = $this->data->create($data); 
             return response('Created',201);
         } 
         catch(Exception $ex) {
@@ -68,19 +69,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-    //show user by id
     public function show($id)
     {
-        try {
-            $user = $this->user->where("id", "=", "$id")->get();
-            return response()->json($user, 200);
+         try {
+            $data = $this->data->where("id", "=", "$id")->get();
+            return response()->json($data, 200);
         }
         catch (Exception $ex) {
             echo $ex;
             return response('Failed', 400);
         }
-       
     }
 
     /**
@@ -89,11 +87,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-       
-
     public function edit($id)
     {
+        //
     }
 
     /**
@@ -103,23 +99,22 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-    //update an exisiting user data
     public function update(Request $request, $id)
-    {   
+    {
         try {
-            $user = $this->user->find($id)->update([
-                "firstName" => $request->firstName,
-                "lastName" => $request->lastName,
-                "username" => $request->username,
-                "email" => $request->email,
-                "password" => $request->password,
-                "accessLevel" => $request->accessLevel,
+            $data = $this->data->find($id)->update([
+                "user_id" => $request->user_id,
+                "title" => $request->title,
+                "content" => $request->content,
+                "views" => $request->views,
+                "datePosted" => $request->datePosted,
+                "dateCreated" => $request->dateCreated,
+                "isPublic" => $request->isPublic,
                 "isDeleted" => $request->isDeleted
             ]);
-            $user = $this->user->where("id", "=", $id)->get();
+            $data = $this->data->where("id", "=", $id)->get();
 
-            return response()->json($user,200);
+            return response()->json($data,200);
         }
         catch(Exception $ex) {
             return response()->json($ex, 400);
@@ -132,12 +127,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-    //set isDeleted true
     public function destroy($id)
     {
         try {
-            $user = $this->user->where("id", "=", "$id")->update(['isDeleted' => true]);;
+            $data = $this->data->where("id", "=", "$id")->update(['isDeleted' => true]);;
             return response('Deleted',200);
         }
         catch(Exception $ex) {
