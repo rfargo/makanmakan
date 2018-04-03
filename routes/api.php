@@ -48,13 +48,16 @@ Route::resource('/TagHeader','TagHeaderController');
 Route::resource('/TagDetails','TagDetailsController');
 
 
+Route::post('register', 'AuthController@register');
+Route::post('login', 'AuthController@login');
+Route::post('recover', 'AuthController@recover');
+Route::group(['middleware' => ['jwt.auth']], function() {
+    Route::get('logout', 'AuthController@logout');
+    Route::get('test', function(){
+        return response()->json(['foo'=>'bar']);
+    });
+});
 
-
-
-
-
-// Route::get('/user', 'UserController@show');
-// Route::post('/user', 'UserController@store');
-// Route::get('/user/{id}', 'UserController@showProfile');
-// Route::put('/user/{id}', 'UserController@update');
-// Route::delete('/user/{id}', 'UserController@delete');
+Route::get('user/verify/{verification_code}', 'AuthController@verifyUser');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.request');
+Route::post('password/reset', 'Auth\ResetPasswordController@postReset')->name('password.reset');
