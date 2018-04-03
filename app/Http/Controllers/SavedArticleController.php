@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ReportedReview;
+use App\Models\SavedArticle;
 use Exception;
 
-class ReportedReviewController extends Controller
+class SavedArticleController extends Controller
 {
     protected $data;
     /**
@@ -15,13 +15,13 @@ class ReportedReviewController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function __construct(ReportedReview $data){
+     public function __construct(SavedArticle $data){
         $this->data = $data;
     }
 
     public function index()
     {
-        return ReportedReview::all();
+        return SavedArticle::all();
     }
 
     /**
@@ -42,11 +42,9 @@ class ReportedReviewController extends Controller
      */
     public function store(Request $request)
     {
-         $data = [
-            "review_id" => $request->review_id,
-            "user_id" => $request->user_id,
-            "reason" => $request->reason,
-            "dateReported" => $request->dateReported
+        $data = [
+            "article_id" => $request->article_id,
+            "user_id" => $request->user_id
         ];
         try { 
             $data = $this->data->create($data); 
@@ -64,8 +62,6 @@ class ReportedReviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-    //Show the reports the user has given
     public function show($id)
     {
         try {
@@ -100,10 +96,8 @@ class ReportedReviewController extends Controller
     {
         // try {
         //     $data = $this->data->find($id)->update([
-        //         "review_id" => $request->review_id,
-        //         "user_id" => $request->user_id,
-        //         "reason" => $request->content,
-        //         "dateReported" => $request->dateReported
+        //         "article_id" => $request->article_id,
+        //         "user_id" => $request->user_id
         //     ]);
         //     $data = $this->data->where("id", "=", $id)->get();
 
@@ -122,5 +116,12 @@ class ReportedReviewController extends Controller
      */
     public function destroy($id)
     {
+        // try {
+        //     $data = $this->data->where("article_id", "=", "$id")->update(['isDeleted' => true]);;
+        //     return response('Deleted',200);
+        // }
+        // catch(Exception $ex) {
+        //     return response($ex, 400);
+        // }
     }
 }

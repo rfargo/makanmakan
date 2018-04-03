@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ReportedReview;
+use App\Models\TagDetails;
 use Exception;
 
-class ReportedReviewController extends Controller
+class TagDetailsController extends Controller
 {
     protected $data;
     /**
@@ -15,13 +15,13 @@ class ReportedReviewController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function __construct(ReportedReview $data){
+     public function __construct(TagDetails $data){
         $this->data = $data;
     }
 
     public function index()
     {
-        return ReportedReview::all();
+        return TagDetails::all();
     }
 
     /**
@@ -42,11 +42,9 @@ class ReportedReviewController extends Controller
      */
     public function store(Request $request)
     {
-         $data = [
-            "review_id" => $request->review_id,
-            "user_id" => $request->user_id,
-            "reason" => $request->reason,
-            "dateReported" => $request->dateReported
+        $data = [
+            "recipe_id" => $request->recipe_id,
+            "tag_id" => $request->tag_id
         ];
         try { 
             $data = $this->data->create($data); 
@@ -64,12 +62,10 @@ class ReportedReviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-    //Show the reports the user has given
     public function show($id)
     {
         try {
-            $data = $this->data->where("user_id", "=", "$id")->get();
+            $data = $this->data->where("recipe_id", "=", "$id")->get();
             return response()->json($data, 200);
         }
         catch (Exception $ex) {
@@ -98,20 +94,7 @@ class ReportedReviewController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // try {
-        //     $data = $this->data->find($id)->update([
-        //         "review_id" => $request->review_id,
-        //         "user_id" => $request->user_id,
-        //         "reason" => $request->content,
-        //         "dateReported" => $request->dateReported
-        //     ]);
-        //     $data = $this->data->where("id", "=", $id)->get();
-
-        //     return response()->json($data,200);
-        // }
-        // catch(Exception $ex) {
-        //     return response()->json($ex, 400);
-        // }
+        //
     }
 
     /**
@@ -122,5 +105,6 @@ class ReportedReviewController extends Controller
      */
     public function destroy($id)
     {
+        //
     }
 }

@@ -16,21 +16,6 @@ class Recipe extends Model
 		return $this->hasMany('App\Models\SavedRecipe');
 	}
 
-	public function cuisineDetails()
-	{
-		return $this->hasMany('App\Models\CuisineDetails');
-	}
-
-	public function mealCourseDetails()
-	{
-		return $this->hasMany('App\Models\MealCourseDetails');
-	}
-
-	public function dietaryConsiderationDetails()
-	{
-		return $this->hasMany('App\Models\DietaryConsiderationDetails');
-	}
-
 	public function ingredientDetails()
 	{
 		return $this->hasMany('App\Models\IngredientDetails');

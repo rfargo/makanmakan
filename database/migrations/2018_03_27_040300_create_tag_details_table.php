@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDietaryConsiderationDetailsTable extends Migration
+class CreateTagDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,18 @@ class CreateDietaryConsiderationDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('dietary_consideration_details', function (Blueprint $table) {
+        Schema::create('tag_details', function (Blueprint $table) {
             $table->integer('recipe_id')->unsigned();
-            $table->integer('dc_id')->unsigned(); 
-            $table->primary(['recipe_id', 'dc_id']);
+            $table->integer('tag_id')->unsigned();
+            
+            $table->primary(['recipe_id', 'tag_id']);
             $table->foreign('recipe_id')
                   ->references('id')->on('recipes')
                   ->onUpdate('cascade');
-            $table->foreign('dc_id')
-                  ->references('id')->on('dietary_considerations')
-                  ->onUpdate('cascade');    
+            $table->foreign('tag_id')
+                  ->references('id')->on('tag_headers')
+                  ->onUpdate('cascade');
+
         });
     }
 
@@ -33,6 +35,6 @@ class CreateDietaryConsiderationDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dietary_consideration_details');
+        Schema::dropIfExists('tag_details');
     }
 }

@@ -18,9 +18,39 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('/User','UserController');
+
 Route::resource('/Recipe','RecipeController');
+
 Route::resource('/Article','ArticleController');
+
 Route::resource('/Review','ReviewController');
+
+Route::resource('/ReportedReview','ReportedReviewController'); 
+
+Route::resource('/Ingredient','IngredientController');
+
+Route::resource('/IngredientDetails','IngredientDetailsController');
+
+Route::resource('/Payment','PaymentController');
+
+Route::resource('/SavedArticle','SavedArticleController');
+
+Route::resource('/SavedRecipe','SavedRecipeController');
+
+Route::resource('/TransactionDetails','TransactionDetailsController');
+
+Route::resource('/TransactionHeader','TransactionHeaderController');
+
+Route::resource('/TagCategory','TagCategoryController');//HERE
+
+Route::resource('/TagHeader','TagHeaderController');
+
+Route::resource('/TagDetails','TagDetailsController');
+
+
+
+
+
 
 
 // Route::get('/user', 'UserController@show');
