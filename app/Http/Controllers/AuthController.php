@@ -21,7 +21,7 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        $credentials = $request->only('firstName','lastName','username','email', 'password', 'accessLevel', 'isDeleted');
+        $credentials = $request->only('firstName','lastName','username','email', 'password', 'isDeleted');
         
         $rules = [
             'firstName' => 'required|max:255',
@@ -36,10 +36,9 @@ class AuthController extends Controller
         $username = $request->username;
         $email = $request->email;   
         $password = $request->password;
-        $accessLevel = $request->accessLevel;
         $isDeleted = $request->isDeleted;
         
-        $user = User::create(['firstName' => $firstName,'lastName' => $lastName, 'username' => $username , 'email' => $email, 'password' => Hash::make($password), 'accessLevel' => $accessLevel, 'isDeleted' => $isDeleted]);
+        $user = User::create(['firstName' => $firstName,'lastName' => $lastName, 'username' => $username , 'email' => $email, 'password' => Hash::make($password), 'isDeleted' => $isDeleted]);
         $verification_code = str_random(30); //Generate verification code
         DB::table('user_verifications')->insert(['user_id'=>$user->id,'token'=>$verification_code]);
         $subject = "Please verify your email address.";

@@ -53,7 +53,6 @@ class RecipeController extends Controller
             "views" => $request->views,
             "dateCreated" => $request->dateCreated,
             "datePublished" => $request->datePublished,
-            "isPublic" => $request->isPublic,
             "isDeleted" => $request->isDeleted
 
         ];
@@ -119,7 +118,6 @@ class RecipeController extends Controller
                 "views" => $request->views,
                 "dateCreated" => $request->dateCreated,
                 "datePublished" => $request->datePublished,
-                "isPublic" => $request->isPublic,
                 "isDeleted" => $request->isDeleted
             ]);
             $recipe = $this->recipe->where("id", "=", $id)->get();

@@ -19,9 +19,9 @@ class CreateArticlesTable extends Migration
             $table->string('title');
             $table->longText('content');
             $table->integer('views');
+            $table->string('imageURL');
             $table->dateTime('datePosted')->nullable();
             $table->dateTime('dateCreated');
-            $table->boolean('isPublic');
             $table->boolean('isDeleted');
             $table->foreign('user_id')
                   ->references('id')->on('users')
