@@ -16,7 +16,7 @@ class CreateTagHeadersTable extends Migration
         Schema::create('tag_headers', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('tc_id')->unsigned();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->foreign('tc_id')
                   ->references('id')->on('tag_categories')
                   ->onUpdate('cascade');

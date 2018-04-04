@@ -49,7 +49,6 @@ class UserController extends Controller
             "username" => $request->username,
             "email" => $request->email,
             "password" => $request->password,
-            "accessLevel" => $request->accessLevel,
             "isDeleted" => $request->isDeleted
         ];
         try { 
@@ -114,7 +113,6 @@ class UserController extends Controller
                 "username" => $request->username,
                 "email" => $request->email,
                 "password" => $request->password,
-                "accessLevel" => $request->accessLevel,
                 "isDeleted" => $request->isDeleted
             ]);
             $user = $this->user->where("id", "=", $id)->get();

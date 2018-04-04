@@ -4,14 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticable implements JWTSubject
+class User extends Authenticatable implements JWTSubject
 {
+    use Notifiable;
     protected $table = 'users';
-    protected $fillable = ['firstName','lastName','username', 'email', 'password','accessLevel','isDeleted', 'isVerified'];
+    protected $fillable = ['firstName','lastName','username', 'email', 'password','isDeleted', 'isVerified'];
     protected $guarded = [];
-    protected $hidden = ['password'];    
+    protected $hidden = ['password','remember_token'];    
     public $timestamps = false;
 
     public function savedArticles()

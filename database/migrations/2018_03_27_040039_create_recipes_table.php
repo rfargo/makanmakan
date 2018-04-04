@@ -31,7 +31,6 @@ class CreateRecipesTable extends Migration
             $table->integer('views');
             $table->dateTime('dateCreated');
             $table->dateTime('datePublished')->nullable();
-            $table->boolean('isPublic');
             $table->boolean('isDeleted');
             $table->foreign('user_id')
                   ->references('id')->on('users')

@@ -48,9 +48,9 @@ class ArticleController extends Controller
             "title" => $request->title,
             "content" => $request->content,
             "views" => $request->views,
+            "imageURL" => $request->imageURL,
             "datePosted" => $request->datePosted,
             "dateCreated" => $request->dateCreated,
-            "isPublic" => $request->isPublic,
             "isDeleted" => $request->isDeleted
         ];
         try { 
@@ -107,9 +107,9 @@ class ArticleController extends Controller
                 "title" => $request->title,
                 "content" => $request->content,
                 "views" => $request->views,
+                "imageURL" => $request->imageURL,
                 "datePosted" => $request->datePosted,
                 "dateCreated" => $request->dateCreated,
-                "isPublic" => $request->isPublic,
                 "isDeleted" => $request->isDeleted
             ]);
             $data = $this->data->where("id", "=", $id)->get();
