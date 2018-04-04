@@ -4,16 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MealCourseDetails extends Model
+class TagDetails extends Model
 {
-    protected $table = 'meal_course_details';
-	protected $fillable = ['recipe_id','mealcourse_id'];
+    protected $table = 'tag_details';
+	protected $fillable = ['recipe_id','tag_id'];
 	protected $guarded = [];
     public $timestamps = false;
     
-	public function mealCourse()
+	public function tagHeader()
 	{
-		return $this->belongsTo('App\Models\MealCourse')
+		return $this->belongsTo('App\Models\TagHeader');
 	}
 
 	public function recipe()

@@ -3,25 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ReportedReview;
+use App\Models\IngredientDetails;
 use Exception;
 
-class ReportedReviewController extends Controller
+class IngredientDetailsController extends Controller
 {
-    protected $data;
+     protected $data;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
 
-     public function __construct(ReportedReview $data){
+     public function __construct(IngredientDetails $data){
         $this->data = $data;
     }
 
     public function index()
     {
-        return ReportedReview::all();
+        return IngredientDetails::all();
     }
 
     /**
@@ -42,11 +42,11 @@ class ReportedReviewController extends Controller
      */
     public function store(Request $request)
     {
-         $data = [
-            "review_id" => $request->review_id,
-            "user_id" => $request->user_id,
-            "reason" => $request->reason,
-            "dateReported" => $request->dateReported
+        $data = [
+            "recipe_id" => $request->recipe_id,
+            "ingredient_id" => $request->ingredient_id,
+            "quantity" => $request->quantity,
+            "unit" => $request->unit
         ];
         try { 
             $data = $this->data->create($data); 
@@ -64,12 +64,10 @@ class ReportedReviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-    //Show the reports the user has given
     public function show($id)
     {
         try {
-            $data = $this->data->where("user_id", "=", "$id")->get();
+            $data = $this->data->where("recipe_id", "=", "$id")->get();
             return response()->json($data, 200);
         }
         catch (Exception $ex) {
@@ -100,10 +98,10 @@ class ReportedReviewController extends Controller
     {
         // try {
         //     $data = $this->data->find($id)->update([
-        //         "review_id" => $request->review_id,
-        //         "user_id" => $request->user_id,
-        //         "reason" => $request->content,
-        //         "dateReported" => $request->dateReported
+        //         "recipe_id" => $request->recipe_id,
+        //         "ingredient_id" => $request->ingredient_id,
+        //         "quantity" => $request->quantity,
+        //         "unit" => $request->unit
         //     ]);
         //     $data = $this->data->where("id", "=", $id)->get();
 
@@ -122,5 +120,12 @@ class ReportedReviewController extends Controller
      */
     public function destroy($id)
     {
+        // try {
+        //     $data = $this->data->where("recipe_id", "=", "$id")->update(['isDeleted' => true]);;
+        //     return response('Deleted',200);
+        // }
+        // catch(Exception $ex) {
+        //     return response($ex, 400);
+        // }
     }
 }

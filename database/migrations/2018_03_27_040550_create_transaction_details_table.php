@@ -18,6 +18,14 @@ class CreateTransactionDetailsTable extends Migration
             $table->integer('recipe_id')->unsigned();
             $table->decimal('price',10,2);
             $table->integer('quantity');
+
+            $table->primary(['transaction_id', 'recipe_id']);
+            $table->foreign('recipe_id')
+                  ->references('id')->on('recipes')
+                  ->onUpdate('cascade');
+            $table->foreign('transaction_id')
+                  ->references('id')->on('transaction_headers')
+                  ->onUpdate('cascade');
         });
     }
 

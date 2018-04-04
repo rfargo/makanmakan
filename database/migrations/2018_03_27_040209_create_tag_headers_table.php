@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDietaryConsiderationsTable extends Migration
+class CreateTagHeadersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class CreateDietaryConsiderationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('dietary_considerations', function (Blueprint $table) {
+        Schema::create('tag_headers', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('tc_id')->unsigned();
             $table->string('name');
+            $table->foreign('tc_id')
+                  ->references('id')->on('tag_categories')
+                  ->onUpdate('cascade');
         });
     }
 
@@ -26,6 +30,6 @@ class CreateDietaryConsiderationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dietary_considerations');
+        Schema::dropIfExists('tag_headers');
     }
 }

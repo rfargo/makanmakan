@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Model
+class User extends Authenticable implements JWTSubject
 {
     protected $table = 'users';
-    protected $fillable = ['firstName','lastName','username', 'email', 'password','accessLevel','isDeleted'];
+    protected $fillable = ['firstName','lastName','username', 'email', 'password','accessLevel','isDeleted', 'isVerified'];
     protected $guarded = [];
+    protected $hidden = ['password'];    
     public $timestamps = false;
 
     public function savedArticles()
@@ -44,5 +47,24 @@ class User extends Model
     public function recipes()
     {
     	return $this->hasMany('App\Models\Recipe');
+    }
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

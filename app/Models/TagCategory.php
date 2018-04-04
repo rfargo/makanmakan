@@ -4,16 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MealCourse extends Model
+class TagCategory extends Model
 {
-   	protected $table = 'meal_courses';
+    protected $table = 'tag_categories';
 	protected $fillable = ['name'];
 	protected $guarded = [];
     public $timestamps = false;
     
-	public function mealCourseDetails()
+	public function tagHeader()
 	{
-		return $this->hasMany('App\Models\MealCourseDetails');
+		return $this->hasMany('App\Models\TagHeader');
 	}
-		
 }

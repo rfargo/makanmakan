@@ -10,7 +10,6 @@ class TransactionHeader extends Model
 	protected $fillable = ['user_id','status','deliveryAddress','dateSent','dateReceived','dateOrdered'];
 	protected $guarded = [];
     public $timestamps = false;
-    public $timestamps = false;
     
 	public function transactionDetails()
 	{
