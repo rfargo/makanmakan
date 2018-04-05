@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Models\User;
 use Exception;
 
 class ArticleController extends Controller
@@ -35,6 +36,25 @@ class ArticleController extends Controller
         //
     }
 
+    public function showFK($id)
+    {
+        try {
+            $idUser = Article::where('id','=',$id)->value('user_id');
+            $array['user'] = User::where('id','=',$idUser)->value('username');
+            $array['article'] =[
+            $data = $this->data->where("id", "=", "$id")->get()]; 
+
+            return response()->json($array, 200);    
+
+        } catch (Exception $ex) {
+
+            echo $ex; 
+            return response('Failed', 400);
+
+        }
+        
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -47,11 +67,8 @@ class ArticleController extends Controller
             "user_id" => $request->user_id,
             "title" => $request->title,
             "content" => $request->content,
-            "views" => $request->views,
             "imageURL" => $request->imageURL,
-            "datePosted" => $request->datePosted,
-            "dateCreated" => $request->dateCreated,
-            "isDeleted" => $request->isDeleted
+            "dateCreated" => $request->dateCreated
         ];
         try { 
             $data = $this->data->create($data); 
@@ -106,11 +123,8 @@ class ArticleController extends Controller
                 "user_id" => $request->user_id,
                 "title" => $request->title,
                 "content" => $request->content,
-                "views" => $request->views,
                 "imageURL" => $request->imageURL,
-                "datePosted" => $request->datePosted,
-                "dateCreated" => $request->dateCreated,
-                "isDeleted" => $request->isDeleted
+                "dateCreated" => $request->dateCreated
             ]);
             $data = $this->data->where("id", "=", $id)->get();
 

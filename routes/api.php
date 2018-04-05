@@ -18,10 +18,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('/User','UserController');
+Route::get('/UserwithArticle/{id}','UserController@showWithArticle');
+Route::get('/UserwithRecipe/{id}','UserController@showWithRecipe');
+Route::get('/UserwithSavedArticle/{id}','UserController@showWithSavedArticle');
 
 Route::resource('/Recipe','RecipeController');
+Route::get('/RecipeFK/{id}','RecipeController@showFK');
 
 Route::resource('/Article','ArticleController');
+Route::get('/ArticleFK/{id}','ArticleController@showFK');
 
 Route::resource('/Review','ReviewController');
 
@@ -56,6 +61,7 @@ Route::group(['middleware' => ['jwt.auth']], function() {
     Route::get('test', function(){
         return response()->json(['foo'=>'bar']);
     });
+
 });
 
 Route::get('user/verify/{verification_code}', 'AuthController@verifyUser');

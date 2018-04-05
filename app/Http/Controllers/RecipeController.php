@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Recipe;
+use App\Models\User;
+use App\Models\TagDetails;
+use App\Models\TagHeader;
+use App\Models\TagCategory;
 use Exception;
 
 class RecipeController extends Controller
@@ -30,6 +34,28 @@ class RecipeController extends Controller
         //
     }
 
+    public function showFK($id)
+    {
+        try {
+            $idUser = Recipe::where('id','=',$id)->value('user_id');
+            $idTag = TagDetails::where('recipe_id','=',$id)->value('tag_id');
+            $idTagHeader = TagHeader::where('id','=',$idTag)->value('tc_id');
+            $array['user'] = User::where('id','=',$idUser)->value('username');
+            $array['tagHeader'] = TagHeader::where('id','=',$idTag)->value('name');
+            $array['tag'] = TagCategory::where('id', '=',$idTagHeader)->value('name');
+            $array['recipe'] =[
+            $recipe = $this->recipe->where("id", "=", "$id")->get()]; 
+
+            return response()->json($array, 200);    
+
+        } catch (Exception $ex) {
+
+            echo $ex; 
+            return response('Failed', 400);
+
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -50,10 +76,7 @@ class RecipeController extends Controller
             "preparation" => $request->preparation,
             "qty" => $request->qty,
             "price" => $request->price,
-            "views" => $request->views,
-            "dateCreated" => $request->dateCreated,
-            "datePublished" => $request->datePublished,
-            "isDeleted" => $request->isDeleted
+            "dateCreated" => $request->dateCreated
 
         ];
         try { 
@@ -115,10 +138,7 @@ class RecipeController extends Controller
                 "preparation" => $request->preparation,
                 "qty" => $request->qty,
                 "price" => $request->price,
-                "views" => $request->views,
-                "dateCreated" => $request->dateCreated,
-                "datePublished" => $request->datePublished,
-                "isDeleted" => $request->isDeleted
+                "dateCreated" => $request->dateCreated
             ]);
             $recipe = $this->recipe->where("id", "=", $id)->get();
 
