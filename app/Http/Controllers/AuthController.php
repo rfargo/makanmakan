@@ -21,7 +21,7 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        $credentials = $request->only('firstName','lastName','username','email', 'password', 'isDeleted');
+        $credentials = $request->only('firstName','lastName','username','email', 'password');
         
         $rules = [
             'firstName' => 'required|max:255',
@@ -36,15 +36,14 @@ class AuthController extends Controller
         $username = $request->username;
         $email = $request->email;   
         $password = $request->password;
-        $isDeleted = $request->isDeleted;
         
-        $user = User::create(['firstName' => $firstName,'lastName' => $lastName, 'username' => $username , 'email' => $email, 'password' => Hash::make($password), 'isDeleted' => $isDeleted]);
+        $user = User::create(['firstName' => $firstName,'lastName' => $lastName, 'username' => $username , 'email' => $email, 'password' => Hash::make($password)]);
         $verification_code = str_random(30); //Generate verification code
         DB::table('user_verifications')->insert(['user_id'=>$user->id,'token'=>$verification_code]);
         $subject = "Please verify your email address.";
         Mail::send('verify', ['firstName' => $firstName, 'verification_code' => $verification_code],
             function($mail) use ($email, $firstName, $subject){
-                $mail->from(getenv('MAIL_USERNAME'), "From Makanmakan");
+                $mail->from(getenv('MAIL_USERNAME'), "makanmakan");
                 $mail->to($email, $firstName);
                 $mail->subject($subject);
             });

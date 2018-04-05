@@ -18,9 +18,8 @@ class CreateReviewsTable extends Migration
             $table->integer('article_id')->unsigned();
             $table->integer('user_id')->unsigned(); // the one who leave a review
             $table->longText('content');
-            $table->integer('rating'); 
             $table->dateTime('datePosted');
-            $table->boolean('isDeleted');
+            $table->boolean('isDeleted')->default(0);;
             $table->foreign('user_id')
                   ->references('id')->on('users')
                   ->onUpdate('cascade');

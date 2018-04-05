@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Article;
+use App\Models\Recipe;
+use App\Models\SavedArticle;
+use App\Models\SavedRecipe;
 use Exception;
 
 class UserController extends Controller
@@ -33,6 +37,77 @@ class UserController extends Controller
         
     }
 
+    public function showWithArticle($id)
+    {
+        try {
+            $array['user'] = User::where('id','=',$id)->get();
+            $array['article'] =[
+            Article::where("user_id", "=", "$id")->get()]; 
+
+            return response()->json($array, 200);    
+
+        } catch (Exception $ex) {
+
+            echo $ex; 
+            return response('Failed', 400);
+
+        }
+    }
+
+    public function showWithRecipe($id)
+    {
+        try {
+            $array['user'] = User::where('id','=',$id)->get();
+            $array['recipe'] =[
+            Recipe::where("user_id", "=", "$id")->get()]; 
+
+            return response()->json($array, 200);    
+
+        } catch (Exception $ex) {
+
+            echo $ex; 
+            return response('Failed', 400);
+
+        }
+    }
+
+    public function showWithSavedArticle($id)
+    {
+        try {
+            $idArticle = SavedArticle::where("user_id", "=", "$id")->value('article_id');
+            $array['user'] = User::where('id','=',$id)->get();
+            $array['SavedArticle'] =[
+                Article::where("id", "=", $idArticle)->get()]; 
+            
+             
+
+            return response()->json($array, 200);    
+
+        } catch (Exception $ex) {
+
+            echo $ex; 
+            return response('Failed', 400);
+
+        }
+    }
+
+    public function showWithSavedRecipe($id)
+    {
+        try {
+            $array['user'] = User::where('id','=',$id)->get();
+            $array['SavedArticle'] =[
+            SavedRecipe::where("user_id", "=", "$id")->get()]; 
+
+            return response()->json($array, 200);    
+
+        } catch (Exception $ex) {
+
+            echo $ex; 
+            return response('Failed', 400);
+
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -43,22 +118,20 @@ class UserController extends Controller
     //create new user
     public function store(Request $request)
     {
-        $user = [
-            "firstName" => $request->firstName,
-            "lastName" => $request->lastName,
-            "username" => $request->username,
-            "email" => $request->email,
-            "password" => $request->password,
-            "isDeleted" => $request->isDeleted
-        ];
-        try { 
-            $user = $this->user->create($user); 
-            return response('Created',201);
-        } 
-        catch(Exception $ex) {
-            echo $ex; 
-            return response('Failed', 400);
-        }
+        // $user = [
+        //     "firstName" => $request->firstName,
+        //     "lastName" => $request->lastName,
+        //     "username" => $request->username,
+        //     "email" => $request->email,
+        //     "password" => $request->password        ];
+        // try { 
+        //     $user = $this->user->create($user); 
+        //     return response('Created',201);
+        // } 
+        // catch(Exception $ex) {
+        //     echo $ex; 
+        //     return response('Failed', 400);
+        // }
     }
 
     /**
@@ -112,8 +185,7 @@ class UserController extends Controller
                 "lastName" => $request->lastName,
                 "username" => $request->username,
                 "email" => $request->email,
-                "password" => $request->password,
-                "isDeleted" => $request->isDeleted
+                "password" => $request->password
             ]);
             $user = $this->user->where("id", "=", $id)->get();
 

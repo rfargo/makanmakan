@@ -45,10 +45,7 @@ class ReviewController extends Controller
             "article_id" => $request->article_id,
             "user_id" => $request->user_id,
             "content" => $request->content,
-            "rating" => $request->rating,
-            "views" => $request->views,
-            "datePosted" => $request->datePosted,
-            "isDeleted" => $request->isDeleted
+            "datePosted" => $request->datePosted
         ];
         try { 
             $data = $this->data->create($data); 
@@ -103,10 +100,7 @@ class ReviewController extends Controller
                 "article_id" => $request->article_id,
                 "user_id" => $request->user_id,
                 "content" => $request->content,
-                "rating" => $request->rating,
-                "views" => $request->views,
-                "datePosted" => $request->datePosted,
-                "isDeleted" => $request->isDeleted
+                "datePosted" => $request->datePosted
             ]);
             $data = $this->data->where("id", "=", $id)->get();
 
