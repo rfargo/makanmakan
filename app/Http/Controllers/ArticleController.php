@@ -89,7 +89,7 @@ class ArticleController extends Controller
     public function show($id)
     {
          try {
-            $data = $this->data->where("id", "=", "$id")->get();
+            $data = $this->data->where("id", "=", "$id")->first();
             return response()->json($data, 200);
         }
         catch (Exception $ex) {

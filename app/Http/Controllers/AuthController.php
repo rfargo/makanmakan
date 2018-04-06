@@ -24,13 +24,16 @@ class AuthController extends Controller
         $credentials = $request->only('firstName','lastName','username','email', 'password');
         
         $rules = [
-            'firstName' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users'
+            'username' => 'required|string|max:255|unique:users',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required'
         ];
         $validator = Validator::make($credentials, $rules);
         if($validator->fails()) {
-            return response()->json(['success'=> false, 'error'=> $validator->messages()]);
+            return response()->json(['success'=> false, 'message'=> $validator->messages()],422);
         }
+
+
         $firstName = $request->firstName;
         $lastName = $request->lastName;
         $username = $request->username;
@@ -47,7 +50,8 @@ class AuthController extends Controller
                 $mail->to($email, $firstName);
                 $mail->subject($subject);
             });
-        return response()->json(['success'=> true, 'message'=> 'Thanks for signing up! Please check your email to complete your registration.']);
+
+        return response()->json(['success'=> true, 'message'=> 'Thanks for signing up! Please check your email to complete your registration.'],200);
     }
 
     public function verifyUser($verification_code)
@@ -68,6 +72,7 @@ class AuthController extends Controller
                 'message'=> 'You have successfully verified your email address.'
             ]);
         }
+
         return response()->json(['success'=> false, 'error'=> "Verification code is invalid."]);
     }
 
