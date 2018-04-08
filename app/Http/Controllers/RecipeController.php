@@ -124,7 +124,13 @@ class RecipeController extends Controller
     public function searchByName($name){
         try {
 
-            $recipe=$this->recipe->where('recipes.title', 'LIKE', "%$name%")->get();
+            $recipe=$this->recipe->where('recipes.title', 'LIKE', "%$name%")
+                ->with('tagDetails.tagHeader', 'ingredientDetails.ingredient')
+                ->join('users', 'users.id', '=', 'recipes.user_id')
+                ->select('recipes.id', 'recipes.title', 'users.username','recipes.about','recipes.pictureURL',
+                    'recipes.servingQty','recipes.servingUnit','recipes.preparation','recipes.qty','recipes.price', 'recipes.dateCreated',
+                    'recipes.isDeleted')
+                ->get();
             return response()->json($recipe, 200);
         }
         catch (Exception $ex) {
