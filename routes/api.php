@@ -24,33 +24,20 @@ Route::get('/UserwithSavedArticle/{id}','UserController@showWithSavedArticle');
 
 Route::resource('/Recipe','RecipeController');
 Route::get('/RecipeFK/{id}','RecipeController@showFK');
-
+Route::get('/search/{name}','RecipeController@searchByName');
 Route::resource('/Article','ArticleController');
 Route::get('/ArticleFK/{id}','ArticleController@showFK');
 
 Route::resource('/Review','ReviewController');
-
-Route::resource('/ReportedReview','ReportedReviewController'); 
-
+Route::resource('/ReportedReview','ReportedReviewController');
 Route::resource('/Ingredient','IngredientController');
-
 Route::resource('/IngredientDetails','IngredientDetailsController');
-
 Route::resource('/Payment','PaymentController');
-
 Route::resource('/SavedArticle','SavedArticleController');
-
 Route::resource('/SavedRecipe','SavedRecipeController');
-
-Route::resource('/TransactionDetails','TransactionDetailsController');
-
-Route::resource('/TransactionHeader','TransactionHeaderController');
-
-Route::resource('/TagCategory','TagCategoryController');//HERE
-
-Route::resource('/TagHeader','TagHeaderController');
-
 Route::resource('/TagDetails','TagDetailsController');
+Route::resource('/TagHeader','TagHeaderController');
+Route::resource('/TagCategory','TagCategoryController');
 
 
 Route::post('register', 'AuthController@register');
@@ -61,7 +48,6 @@ Route::group(['middleware' => ['jwt.auth']], function() {
     Route::get('test', function(){
         return response()->json(['foo'=>'bar']);
     });
-
 });
 
 Route::get('user/verify/{verification_code}', 'AuthController@verifyUser');

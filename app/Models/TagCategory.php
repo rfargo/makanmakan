@@ -10,9 +10,10 @@ class TagCategory extends Model
 	protected $fillable = ['name'];
 	protected $guarded = [];
     public $timestamps = false;
-    
-	public function tagHeader()
+
+
+    public function tagHeader()
 	{
-		return $this->hasMany('App\Models\TagHeader');
+		return $this->hasMany('App\Models\TagHeader', 'tc_id', 'id');
 	}
 }

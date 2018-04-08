@@ -24,13 +24,15 @@ class AuthController extends Controller
         $credentials = $request->only('firstName','lastName','username','email', 'password');
         
         $rules = [
+            'firstName' => 'required|string',
+            'lastName' => 'required|string',
             'username' => 'required|string|max:255|unique:users',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required'
         ];
         $validator = Validator::make($credentials, $rules);
         if($validator->fails()) {
-            return response()->json(['success'=> false, 'message'=> $validator->messages()],422);
+            return response()->json(['success'=> false, 'message'=> $validator->messages()->first()],422);
         }
 
 
@@ -86,7 +88,7 @@ class AuthController extends Controller
         ];
         $validator = Validator::make($credentials, $rules);
         if($validator->fails()) {
-            return response()->json(['success'=> false, 'error'=> $validator->messages()]);
+            return response()->json(['success'=> false, 'error'=> $validator->messages()->first()],422);
         }
         
         $credentials['isVerified'] = 1;
@@ -94,7 +96,7 @@ class AuthController extends Controller
         try {
             // attempt to verify the credentials and create a token for the user
             if (! $token = JWTAuth::attempt($credentials)) {
-                return response()->json(['success' => false, 'error' => 'We cant find an account with this credentials. Please make sure you entered the right information and you have verified your email address.'], 401);
+                return response()->json(['success' => false, 'error' => "We can't find an account with this credentials. Please make sure you entered the right information and you have verified your email address."], 401);
             }
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
@@ -111,7 +113,7 @@ class AuthController extends Controller
      * @param Request $request
      */
     public function logout(Request $request) {
-        $this->validate($request, ['token' => 'required']);
+//        $this->validate($request, ['token' => 'required']);
         
         try {
             JWTAuth::invalidate($request->input('token'));

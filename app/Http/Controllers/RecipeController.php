@@ -21,7 +21,14 @@ class RecipeController extends Controller
     //show all recipe
     public function index()
     {
-        return Recipe::all();
+        try {
+            $recipe = $this->recipe->with('tagDetails', 'ingredientDetails')->get();
+            return response()->json($recipe, 200);
+        }
+        catch (Exception $ex) {
+            echo $ex;
+            return response('Failed', 400);
+        }
     }
 
     /**
@@ -98,7 +105,26 @@ class RecipeController extends Controller
     public function show($id)
     {
         try {
-            $recipe = $this->recipe->where("id", "=", "$id")->get();
+            $recipe = $this->recipe
+                ->where("recipes.id", "=", "$id")
+                ->with('tagDetails.tagHeader', 'ingredientDetails.ingredient')
+                ->join('users', 'users.id', '=', 'recipes.user_id')
+                ->select('recipes.id', 'recipes.title', 'users.username','recipes.about','recipes.pictureURL',
+                    'recipes.servingQty','recipes.servingUnit','recipes.preparation','recipes.qty','recipes.price', 'recipes.dateCreated',
+                    'recipes.isDeleted')
+                ->first();
+            return response()->json($recipe, 200);
+        }
+        catch (Exception $ex) {
+            echo $ex;
+            return response('Failed', 400);
+        }
+    }
+
+    public function searchByName($name){
+        try {
+
+            $recipe=$this->recipe->where('recipes.title', 'LIKE', "%$name%")->get();
             return response()->json($recipe, 200);
         }
         catch (Exception $ex) {

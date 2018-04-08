@@ -13,7 +13,7 @@ class TagDetails extends Model
     
 	public function tagHeader()
 	{
-		return $this->belongsTo('App\Models\TagHeader');
+		return $this->hasMany('App\Models\TagHeader','id','tag_id');
 	}
 
 	public function recipe()

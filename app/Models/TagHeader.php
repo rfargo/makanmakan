@@ -14,7 +14,7 @@ class TagHeader extends Model
 
     public function tagDetails()
 	{
-		return $this->hasMany('App\Models\TagDetails');
+		return $this->belongsTo('App\Models\TagDetails');
 	}
 
 	public function tagCategory()

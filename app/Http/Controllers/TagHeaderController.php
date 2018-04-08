@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\TagHeader;
 use Exception;
@@ -21,8 +22,18 @@ class TagHeaderController extends Controller
 
     public function index()
     {
-        return TagHeader::all();
-    }
+        try {
+            $data = DB::table('tag_headers')
+                ->join('tag_categories', 'tag_categories.id', '=', 'tag_headers.tc_id')
+                ->select('tag_headers.id', 'tag_headers.name', 'tag_categories.id AS category_id', 'tag_categories.name AS category_name')
+                ->get();
+
+            return response()->json($data, 200);
+        }
+        catch (Exception $ex) {
+            echo $ex;
+            return response('Failed', 400);
+        }    }
 
     /**
      * Show the form for creating a new resource.
@@ -65,7 +76,7 @@ class TagHeaderController extends Controller
     public function show($id)
     {
         try {
-            $data = $this->data->where("id", "=", "$id")->get();
+            $data = $this->data->where("id", "=", "$id")->first();
             return response()->json($data, 200);
         }
         catch (Exception $ex) {

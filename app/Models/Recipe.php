@@ -21,6 +21,12 @@ class Recipe extends Model
 		return $this->hasMany('App\Models\IngredientDetails');
 	}
 
+    public function tagDetails()
+    {
+        return $this->hasMany('App\Models\TagDetails');
+    }
+
+
 	public function transactionDetails()
 	{
 		return $this->hasMany('App\Models\TransactionDetails');

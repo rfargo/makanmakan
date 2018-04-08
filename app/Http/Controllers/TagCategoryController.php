@@ -21,7 +21,14 @@ class TagCategoryController extends Controller
 
     public function index()
     {
-        return TagCategory::all();
+        try {
+            $data = $this->data->with('tagHeader')->get();
+            return response()->json($data, 200);
+        }
+        catch (Exception $ex) {
+            echo $ex;
+            return response('Failed', 400);
+        }
     }
 
     /**
