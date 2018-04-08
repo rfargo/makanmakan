@@ -74,6 +74,16 @@
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut a dui erat. Donec euismod sapien pulvinar, facilisis quam vel, rutrum ipsum.</p>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut a dui erat. Donec euismod sapien pulvinar, facilisis quam vel, rutrum ipsum.</p>
 
+      <div class="row">
+        <div class="tags">
+          <h3>Tags:</h3>
+          <span>Food</span> | 
+          <span>Breakfast</span> | 
+          <span>Tags</span> | 
+        </div>
+      </div>
+
+
 <hr>
 
       <form>

@@ -16,7 +16,6 @@
 
     <script src="{{ asset('assets/homepage-js.js') }}"></script>
 
-
 	<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500i,700" rel="stylesheet">
 

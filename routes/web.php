@@ -38,3 +38,12 @@ Route::get('/article', function(){
 Route::get('/recipe', function(){
 	return view('recipe');
 });
+
+Route::get('/recipe-pick', function(){
+	return view('recipe-pick');
+});
+
+Route::get('/recipe-collect', function(){
+	return view('reciper-collection');
+});
+

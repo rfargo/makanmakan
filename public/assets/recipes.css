@@ -1,0 +1,66 @@
+*{
+	font-family: 'Montserrat', sans-serif
+}
+
+.navbar {
+   background-color: #ff6200 !important;
+}
+
+.navbar-brand{
+	font-family: 'Righteous', cursive;
+	color: white;
+}
+
+.nav-link{
+	font-size:20px;
+	margin: 0 5px;
+	font-weight: 500;
+}
+
+
+.dropdown{
+	text-align: center;
+}
+
+.dropdown button{
+	color:white;
+	width: 15vw;
+	background-color: #ff6200 !important;
+}
+
+.form-check label{
+	font-weight: 800;
+	font-size: 3vh;
+}
+
+#recipe-container div div{
+	margin:0;
+	padding: 0;
+}
+
+.recipe .recipe-write{
+	margin: 0 10px !important;
+	padding: 0;
+
+	background-image:url(images/pic1.jpg);
+	background-size: 60vh;
+	background-position: center;
+	background-repeat: no-repeat;
+
+	min-height: 25vh;
+
+	transition: background-size 0.25s;
+}
+
+.recipe:hover .recipe-write,
+.recipe:focus .recipe-write {
+	background-size: 75vh;
+}
+
+.recipe h3{
+	margin-top: 2vh;
+	text-align: center;
+	color: black;
+	font-weight: 700;
+	padding: 0 10px;
+}
