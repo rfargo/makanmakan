@@ -127,3 +127,8 @@ form{
 form .form-group{
 	text-align: left;
 }
+
+.tags span:hover{
+	color:#ff6200;
+	cursor: pointer;
+}
